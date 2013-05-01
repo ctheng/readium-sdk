@@ -10,8 +10,11 @@ This library is all set up to compile as a shared library for Android. At presen
 ### Compilation
 
 1. From a Terminal, go into the Platform/Android subdirectory of the readium-sdk repository (this directory).
-2. Run `ndk-build.sh build <path-to-ndk>` to build. My invocation looks like this, for example:
+2. Run `ndk-compile.sh build|clean [<path-to-ndk>]` to build or clean your project.
+   My invocation looks like this, for example:
 
-    sh ndk-build.sh build /Applications/Android-Dev-Tools/ndk
+   sh ndk-compile.sh build /Applications/Android-Dev-Tools/ndk
+
+   You can also define an ANDROID_NDK env var to have a default for <path-to-ndk>, or simply add the ndk path to your PATH env var.
 
 Everything else should be set up appropriately by that script.
