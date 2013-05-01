@@ -15,6 +15,6 @@ This library is all set up to compile as a shared library for Android. At presen
 
    sh ndk-compile.sh build /Applications/Android-Dev-Tools/ndk
 
-   You can also define an ANDROID_NDK env var to have a default for <path-to-ndk>, or simply add the ndk path to your PATH env var.
+   You can also define an ANDROID_NDK env var to have a default for path-to-ndk, or simply add the ndk path to your PATH env var.
 
 Everything else should be set up appropriately by that script.
