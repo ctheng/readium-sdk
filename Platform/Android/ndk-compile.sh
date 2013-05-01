@@ -20,14 +20,21 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-if [ "$2" = "" ]; then
-	echo "Usage: ndk-compile.sh <build|clean> <path-to-ndk>"
+if [ "$1" = "" ]; then
+	echo "Usage: ndk-compile.sh <build|clean> [<path-to-ndk>]"
+	echo "       You can also define a ANDROID_NDK env var to have a default for <path-to-ndk> or simply add the ndk path to your PATH env var."
 	exit 1
 fi
 
-clean=""
+# Assign $2 to the NDK path or $ANDROID_NDK if $2 not supplied
+PATH_TO_NDK=${2:-$ANDROID_NDK}
+
+# Make sure NDK path ends with a '/'
+PATH_TO_NDK=${PATH_TO_NDK%%/}/
+
+CLEAN=""
 if [ "$1" = "clean" ]; then
-    clean="clean"
+    CLEAN="clean"
 fi
 
-$2/ndk-build $clean -C . V=1 NDK_APPLICATION_MK=Application.mk NDK_PROJECT_PATH=`pwd` APP_BUILD_SCRIPT=Android.mk
+${PATH_TO_NDK}ndk-build $CLEAN -C . V=1 NDK_APPLICATION_MK=Application.mk NDK_PROJECT_PATH=`pwd` APP_BUILD_SCRIPT=Android.mk
