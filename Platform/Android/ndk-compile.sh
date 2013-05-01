@@ -29,12 +29,19 @@ fi
 # Assign $2 to the NDK path or $ANDROID_NDK if $2 not supplied
 PATH_TO_NDK=${2:-$ANDROID_NDK}
 
-# Make sure NDK path ends with a '/'
-PATH_TO_NDK=${PATH_TO_NDK%%/}/
+# Make sure NDK path ends with a '/' if any and output to user to simplify path debugging
+[ "$PATH_TO_NDK" != "" ] && {
+	PATH_TO_NDK=${PATH_TO_NDK%%/}/
+	echo "Using NDK from '$PATH_TO_NDK'"
+} || {
+	echo "Using NDK from PATH"
+}
 
-CLEAN=""
+# Set the clean flag if supplied
+clean=""
 if [ "$1" = "clean" ]; then
-    CLEAN="clean"
+    clean="clean"
 fi
 
-${PATH_TO_NDK}ndk-build $CLEAN -C . V=1 NDK_APPLICATION_MK=Application.mk NDK_PROJECT_PATH=`pwd` APP_BUILD_SCRIPT=Android.mk
+# Run the NDK build script
+${PATH_TO_NDK}ndk-build $clean -C . V=1 NDK_APPLICATION_MK=Application.mk NDK_PROJECT_PATH=`pwd` APP_BUILD_SCRIPT=Android.mk
